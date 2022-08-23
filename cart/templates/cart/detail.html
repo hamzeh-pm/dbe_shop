@@ -73,13 +73,14 @@
                 </table>
             </div>
             <div class="col-lg-4">
-                <form class="mb-5" action="">
+                <form class="mb-5" method="POST" action="{% url 'coupons:coupon_apply' %}">
                     <div class="input-group">
-                        <input type="text" class="form-control p-4" placeholder="Coupon Code">
+                        {{coupon_form.code}}
                         <div class="input-group-append">
-                            <button class="btn btn-primary">Apply Coupon</button>
+                            <button class="btn btn-primary" type="submit">Apply Coupon</button>
                         </div>
                     </div>
+                    {% csrf_token %}
                 </form>
                 <div class="card border-secondary mb-5">
                     <div class="card-header bg-secondary border-0">
@@ -89,6 +90,14 @@
                         <div class="d-flex justify-content-between mt-2">
                             <h5 class="font-weight-bold">Total</h5>
                             <h5 class="font-weight-bold">${{cart.get_total_price}}</h5>
+                        </div>
+                        <div class="d-flex justify-content-between mt-2">
+                            <h5 class="font-weight-bold">Discount</h5>
+                            <h5 class="font-weight-bold">${{cart.get_discount}}</h5>
+                        </div>
+                        <div class="d-flex justify-content-between mt-2">
+                            <h5 class="font-weight-bold">Total After Discount</h5>
+                            <h5 class="font-weight-bold">${{cart.get_total_price_after_discount}}</h5>
                         </div>
                         <a href="{% url 'orders:order_create' %}" class="btn btn-block btn-primary my-3 py-3">Proceed To Checkout</a>
                     </div>
